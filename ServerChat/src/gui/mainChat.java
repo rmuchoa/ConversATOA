@@ -4,17 +4,40 @@
  */
 package gui;
 
+import com.sun.corba.se.impl.io.IIOPOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.net.ssl.SSLSocket;
+import javax.swing.JOptionPane;
+import serverchat.Message;
+import serverchat.Room;
+import serverchat.User;
+
 /**
  *
  * @author Lucas
  */
 public class mainChat extends javax.swing.JFrame {
 
+    User user = new User();
+    User receiver = null;
+
     /**
      * Creates new form mainChat
      */
     public mainChat() {
         initComponents();
+
+        jTextArea_userInputText.setEnabled(false);
+        jButton_sendMessage.setEnabled(false);
+        jButton_logOut.setEnabled(false);
     }
 
     /**
@@ -177,7 +200,36 @@ public class mainChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_sendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_sendMessageActionPerformed
-        // TODO add your handling code here:
+
+         try {
+
+            Message message = new Message();
+
+            String user_message = jTextArea_userInputText.getText();
+
+            message.setUser(user);
+            message.setMessage(" -- " +user.getNickName() + " disse: " + user_message);
+
+            message.setReceiver(receiver);
+            message.setConected(true);
+            message.setAuthenticated(true); 
+
+            Boolean status = sendMessage(message);
+
+            if (status) {
+
+                //
+
+            } else if (status == false) {
+
+                //jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + user_message + " já Existe!");
+            }
+
+        } catch (Exception erro) {
+
+            JOptionPane.showMessageDialog(null, " New user ERROR : " + erro.getMessage());
+        } 
+        
     }//GEN-LAST:event_jButton_sendMessageActionPerformed
 
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
@@ -185,7 +237,51 @@ public class mainChat extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_logOutActionPerformed
 
     private void jButton_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logInActionPerformed
-        // TODO add your handling code here:
+
+        try {
+
+            Message message = new Message();
+
+            String name = jButton_logIn.getText();
+
+            String ipClient = InetAddress.getLocalHost().getHostAddress();
+            user.setNickName(name);
+            user.setIpAdress(ipClient);
+
+            message.setUser(user);
+            message.setMessage("Usuário " + name + " conectando...");
+
+            message.setReceiver(receiver);
+            message.setConected(true);
+
+            Boolean status = sendMessage(message);
+
+            if (status) {
+
+                /**
+                 * Libera os botões para a utilização do chat.
+                 */
+                jTextArea_userInputText.setEnabled(true);
+                jButton_sendMessage.setEnabled(true);
+                jButton_logOut.setEnabled(true);
+                /**
+                 * Desabilita as opções de login.
+                 */
+                jTextField_userNickname.setEnabled(false);
+                jButton_logIn.setEnabled(false);
+
+
+            } else if (status == false) {
+
+                jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + name + " já Existe!");
+            }
+
+
+        } catch (UnknownHostException erro) {
+
+            JOptionPane.showMessageDialog(null, " New user ERROR : " + erro.getMessage());
+        }
+
     }//GEN-LAST:event_jButton_logInActionPerformed
 
     private void jTextField_userNicknameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_userNicknameActionPerformed
@@ -250,4 +346,31 @@ public class mainChat extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea_userInputText;
     private javax.swing.JTextField jTextField_userNickname;
     // End of variables declaration//GEN-END:variables
+
+    public boolean sendMessage(Message message) {
+
+        Boolean status = false;
+
+        try {
+            int serverPort = 8000;
+
+            String ipServer;
+
+            ipServer = InetAddress.getLocalHost().getHostAddress();
+            Socket clientSocket = new Socket(ipServer, serverPort);
+
+            ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
+            ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
+
+            output.writeObject(message);
+            status = input.readBoolean();
+
+        } catch (IOException ex) {
+            Logger.getLogger(mainChat.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return status;
+
+    }
 }

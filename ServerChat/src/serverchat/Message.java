@@ -23,6 +23,9 @@ public class Message {
     private boolean conected;
     
     public Message() {
+        
+        this.authenticated = false;
+        this.conected = false;
     
     }
 

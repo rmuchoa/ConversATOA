@@ -5,6 +5,7 @@
 package serverchat;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
@@ -32,6 +33,13 @@ public class ServerChat {
     public static void main(String rgs[]) {
 
         try {
+            
+            /**
+             * Captura o endereço do local host, ou sej ao endereço fisico do computador.
+             */
+//            InetAddress ia = InetAddress.getLocalHost();
+//            System.out.println(ia.getHostAddress());
+            
             
             serverPort = 8080;
             ServerSocket listaSocket = new ServerSocket(serverPort);

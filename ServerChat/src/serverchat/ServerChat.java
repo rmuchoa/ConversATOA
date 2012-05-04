@@ -6,17 +6,19 @@ package serverchat;
 
 /**
  *
- * @author renanmarceluchoa
+ * @version 0.2
+ * @author Juliano Rodovalho, Lucas , Renan Marcel
  */
 public class ServerChat {
+    
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    public void ServerChat(){
         
         
-                
+        
         
     }
+    
+    
+    
 }

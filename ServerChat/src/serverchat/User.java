@@ -8,12 +8,12 @@ package serverchat;
  *
  * @author renanmarceluchoa
  */
-public class Usuario {
+public class User {
     
     private String nickName;
     private String ipAdress;
     
-    public Usuario() {
+    public User() {
         
     }
 

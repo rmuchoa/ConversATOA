@@ -8,28 +8,28 @@ package serverchat;
  *
  * @author renanmarceluchoa
  */
-public class Mensagem {
+public class Message {
     
-    private Usuario user;
+    private User user;
     private String message;
-    private boolean conStatus;
-    private boolean autentic;
+    private boolean authenticated;
+    private boolean conectionStatus;
     
-    public Mensagem() {
+    public Message() {
     
     }
 
     /**
      * @return the user
      */
-    public Usuario getUser() {
+    public User getUser() {
         return user;
     }
 
     /**
      * @param user the user to set
      */
-    public void setUser(Usuario user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -50,29 +50,29 @@ public class Mensagem {
     /**
      * @return the conStatus
      */
-    public boolean isConStatus() {
-        return conStatus;
+    public boolean isConectionStatus() {
+        return conectionStatus;
     }
 
     /**
-     * @param conStatus the conStatus to set
+     * @param conectionStatus the conStatus to set
      */
-    public void setConStatus(boolean conStatus) {
-        this.conStatus = conStatus;
+    public void setConectionStatus(boolean conectionStatus) {
+        this.conectionStatus = conectionStatus;
     }
 
     /**
      * @return the autentic
      */
-    public boolean isAutentic() {
-        return autentic;
+    public boolean isAuthenticated() {
+        return authenticated;
     }
 
     /**
      * @param autentic the autentic to set
      */
-    public void setAutentic(boolean autentic) {
-        this.autentic = autentic;
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
     }
     
 }

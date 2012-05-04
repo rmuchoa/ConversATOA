@@ -35,7 +35,7 @@ public class ServerChat {
 
         try {
             
-            serverPort = 8000;
+            serverPort = 7896;
             ServerSocket listSocket = new ServerSocket(serverPort);
             Room room = new Room();
             
@@ -50,6 +50,7 @@ public class ServerChat {
                 Socket clientSocket = listSocket.accept();
                 new Connection(clientSocket, room);
                 
+                System.out.println("teste");
             }
 
         } catch (IOException erro) {

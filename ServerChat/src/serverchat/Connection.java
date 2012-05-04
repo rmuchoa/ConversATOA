@@ -34,6 +34,7 @@ class Connection extends Thread {
 
         try {
 
+            System.out.println("teste");
             this.input = new ObjectInputStream(clientSocket.getInputStream());
             this.output = new ObjectOutputStream(clientSocket.getOutputStream());
             this.clientSocket = clientSocket;
@@ -62,7 +63,7 @@ class Connection extends Thread {
                 if(message.getReceiver() == null) {
                     
                     for(User user : room.getUsers()) {
-                        int clientPort = 8000;
+                        int clientPort = 7896;
                         Socket resendSocket = new Socket(user.getIpAdress(), clientPort);
                         ObjectInputStream in = new ObjectInputStream(resendSocket.getInputStream());
                         ObjectOutputStream out = new ObjectOutputStream(resendSocket.getOutputStream());
@@ -70,14 +71,17 @@ class Connection extends Thread {
                         out.writeObject(message);
                         
                         boolean status = in.readBoolean();
-                        System.out.println("Message received by client: "+message.getMessage());
+                        if (status)
+                            System.out.println("Message received by client: "+message.getMessage());
+                        else
+                            System.out.println("");
                     }
                     
                     //108.174.58.136:8000 ------ InetAddress.getLocalHost().getHostAddress()
                     
                 } else {
                     
-                    int clientPort = 8000;
+                    int clientPort = 7896;
                     Socket resendSocket = new Socket(message.getReceiver().getIpAdress(), clientPort);
                     ObjectInputStream in = new ObjectInputStream(resendSocket.getInputStream());
                     ObjectOutputStream out = new ObjectOutputStream(resendSocket.getOutputStream());
@@ -85,11 +89,12 @@ class Connection extends Thread {
                     out.writeObject(message);
                     
                     boolean status = in.readBoolean();
-                    if (status) {
+                    if (status)
                         System.out.println("Message received by client: "+message.getMessage());
-                    }
+                    else
+                        System.out.println("");
                     
-                    clientPort = 8000;
+                    clientPort = 7896;
                     resendSocket = new Socket(message.getReceiver().getIpAdress(), clientPort);
                     in = new ObjectInputStream(resendSocket.getInputStream());
                     out = new ObjectOutputStream(resendSocket.getOutputStream());
@@ -97,9 +102,10 @@ class Connection extends Thread {
                     out.writeObject(message);
                     
                     status = in.readBoolean();
-                    if (status) { 
+                    if (status)
                         System.out.println("Message received by client: "+message.getMessage());
-                    }
+                    else
+                        System.out.println("");
                     
                 }
                 

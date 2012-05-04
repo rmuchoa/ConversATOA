@@ -54,9 +54,9 @@ public class ServerChat {
 
                 Socket clientSocket = listSocket.accept();
                 System.out.println("Trollo o accept()...");
-                ServerConnection connection = new ServerConnection(clientSocket, room);
                 
-                System.out.println("Server running... ou NÃO! HAHAHA");
+                ServerConnection connection = new ServerConnection(clientSocket, room);                
+                System.out.println("Server running... ou NÃO! _HAHAHA_");
                 
             }
 

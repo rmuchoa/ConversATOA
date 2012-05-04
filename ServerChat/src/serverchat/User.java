@@ -4,6 +4,8 @@
  */
 package serverchat;
 
+import java.io.Serializable;
+
 /**
  *
  * Trabalho 01 - Implementação de Chat
@@ -14,7 +16,7 @@ package serverchat;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas , Renan Marcel
  */
-public class User {
+public class User implements Serializable{
     
     private String nickName;
     private String ipAdress;

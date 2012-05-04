@@ -25,27 +25,25 @@ class ServerConnection extends Thread {
 
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private Socket clientSocket;
     private Room room;
 
     public ServerConnection(Socket clientSocket, Room room) {
 
-        try {
 
+        try {
+            System.out.println("Trollo o construtor...");
             this.input = new ObjectInputStream(clientSocket.getInputStream());
             System.out.println("Trollo o input...");
             this.output = new ObjectOutputStream(clientSocket.getOutputStream());
             System.out.println("Trollo o output...");
-            this.clientSocket = clientSocket;
             this.room = room;
             this.start();
             System.out.println("Trollo a thread...");
 
-        } catch (IOException erro) {
+        } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, " CONNECTION ERROR : " + erro.getMessage());
 
         }
-
     }
 
     @Override
@@ -111,8 +109,9 @@ class ServerConnection extends Thread {
             }
             output.writeObject(message);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException error) {
+            JOptionPane.showMessageDialog(null, " ERROR : " + error.getMessage());
+
         } catch (IOException erro) {
 
             JOptionPane.showMessageDialog(null, " Input/Output ERROR : " + erro.getMessage());

@@ -201,35 +201,32 @@ public class mainChat extends javax.swing.JFrame {
 
     private void jButton_sendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_sendMessageActionPerformed
 
-         try {
+        try {
 
             Message message = new Message();
 
             String user_message = jTextArea_userInputText.getText();
 
             message.setUser(user);
-            message.setMessage(" -- " +user.getNickName() + " disse: " + user_message);
+            message.setMessage(" -- " + user.getNickName() + " disse: " + user_message);
 
             message.setReceiver(receiver);
             message.setConected(true);
-            message.setAuthenticated(true); 
+            message.setAuthenticated(true);
 
             Boolean status = sendMessage(message);
 
             if (status) {
-
                 //
-
             } else if (status == false) {
-
                 //jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + user_message + " já Existe!");
             }
 
         } catch (Exception erro) {
 
             JOptionPane.showMessageDialog(null, " New user ERROR : " + erro.getMessage());
-        } 
-        
+        }
+
     }//GEN-LAST:event_jButton_sendMessageActionPerformed
 
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
@@ -242,10 +239,14 @@ public class mainChat extends javax.swing.JFrame {
 
             Message message = new Message();
 
-            String name = jButton_logIn.getText();
+            String name = jTextField_userNickname.getText();
 
             String ipClient = InetAddress.getLocalHost().getHostAddress();
+
+            System.out.println("Troll 1..");
+            
             user.setNickName(name);
+            System.out.println("Troll 2..");
             user.setIpAdress(ipClient);
 
             message.setUser(user);
@@ -254,6 +255,7 @@ public class mainChat extends javax.swing.JFrame {
             message.setReceiver(receiver);
             message.setConected(true);
 
+            System.out.println("Troll 3..");
             Boolean status = sendMessage(message);
 
             if (status) {
@@ -269,6 +271,8 @@ public class mainChat extends javax.swing.JFrame {
                  */
                 jTextField_userNickname.setEnabled(false);
                 jButton_logIn.setEnabled(false);
+                
+                System.out.println("Troll 4 ... botões desbloquiados!");
 
 
             } else if (status == false) {
@@ -277,7 +281,7 @@ public class mainChat extends javax.swing.JFrame {
             }
 
 
-        } catch (UnknownHostException erro) {
+        } catch (Exception erro) {
 
             JOptionPane.showMessageDialog(null, " New user ERROR : " + erro.getMessage());
         }
@@ -359,10 +363,12 @@ public class mainChat extends javax.swing.JFrame {
             ipServer = InetAddress.getLocalHost().getHostAddress();
             Socket clientSocket = new Socket(ipServer, serverPort);
 
-            new ClientConnection(clientSocket, message);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(mainChat.class.getName()).log(Level.SEVERE, null, ex);
+           status = new ClientConnection(clientSocket, message).isStatus();
+                       
+
+        } catch (IOException erro) {
+           
+            JOptionPane.showMessageDialog(null, " SEND MESSAGE ERROR : " + erro.getMessage());
 
         }
 

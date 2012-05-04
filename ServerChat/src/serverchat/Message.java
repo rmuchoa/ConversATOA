@@ -16,6 +16,7 @@ import java.io.Serializable;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas , Renan Marcel
  */
+
 public class Message implements Serializable {
     
     private User user;

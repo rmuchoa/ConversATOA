@@ -28,8 +28,9 @@ class ClientConnection extends Thread {
     private ObjectOutputStream output;
     private Socket clientSocket;
     private Message message;
+    private boolean status;
 
-    ClientConnection(Socket clientSocket, Message message) {
+    public ClientConnection(Socket clientSocket, Message message) {
 
         try {
 
@@ -50,8 +51,8 @@ class ClientConnection extends Thread {
 
         try {
             output.writeObject(message);
-            boolean status = input.readBoolean();
-            if (status) {
+            this.setStatus(input.readBoolean());
+            if (isStatus()) {
                 System.out.println("Message received by server: " + message.getMessage());
             }
 
@@ -61,5 +62,19 @@ class ClientConnection extends Thread {
 
         }
 
+    }
+
+    /**
+     * @return the status
+     */
+    public boolean isStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

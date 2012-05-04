@@ -33,11 +33,15 @@ public class ServerChat {
 
     public static void main(String rgs[]) {
 
+        System.out.println("Entro na main...");
+        
         try {
             
-            serverPort = 7896;
+            serverPort = 8000;
+            System.out.println("Trollo a porta...");
             ServerSocket listSocket = new ServerSocket(serverPort);
             Room room = new Room();
+            System.out.println("Criou o socket...");
             
             /**
              * Captura o endereço do local host, ou sej ao endereço fisico do computador.
@@ -46,11 +50,13 @@ public class ServerChat {
 //            System.out.println(ia.getHostAddress());
             
             while (true) {
+                System.out.println("Trollo o while...");
 
                 Socket clientSocket = listSocket.accept();
-                ServerConnection connection = new ServerConnection(clientSocket, room);
+                System.out.println("Trollo o accept()...");
                 
-                System.out.println("Server running...");
+                ServerConnection connection = new ServerConnection(clientSocket, room);                
+                System.out.println("Server running... ou NÃO! _HAHAHA_");
                 
                 System.out.println("teste");
             }

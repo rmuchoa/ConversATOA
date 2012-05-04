@@ -23,14 +23,14 @@ import javax.swing.JOptionPane;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
-class Connection extends Thread {
+class ServerConnection extends Thread {
 
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private Socket clientSocket;
     private Room room;
 
-    Connection(Socket clientSocket, Room room) {
+    public ServerConnection(Socket clientSocket, Room room) {
 
         try {
 
@@ -95,7 +95,7 @@ class Connection extends Thread {
                         System.out.println("");
                     
                     clientPort = 7896;
-                    resendSocket = new Socket(message.getReceiver().getIpAdress(), clientPort);
+                    resendSocket = new Socket(message.getUser().getIpAdress(), clientPort);
                     in = new ObjectInputStream(resendSocket.getInputStream());
                     out = new ObjectOutputStream(resendSocket.getOutputStream());
                     
@@ -117,7 +117,7 @@ class Connection extends Thread {
             output.writeObject(message);
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException erro) {
 
             JOptionPane.showMessageDialog(null, " Input/Output ERROR : " + erro.getMessage());

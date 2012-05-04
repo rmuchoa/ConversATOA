@@ -48,7 +48,9 @@ public class ServerChat {
             while (true) {
 
                 Socket clientSocket = listSocket.accept();
-                new Connection(clientSocket, room);
+                ServerConnection connection = new ServerConnection(clientSocket, room);
+                
+                System.out.println("Server running...");
                 
                 System.out.println("teste");
             }

@@ -4,6 +4,8 @@
  */
 package serverchat;
 
+import java.io.Serializable;
+
 /**
  *
  * Trabalho 01 - Implementação de Chat
@@ -14,7 +16,7 @@ package serverchat;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas , Renan Marcel
  */
-public class Message {
+public class Message implements Serializable {
     
     private User user;
     private String message;
@@ -23,6 +25,9 @@ public class Message {
     private boolean conected;
     
     public Message() {
+        
+        this.authenticated = false;
+        this.conected = false;
     
     }
 

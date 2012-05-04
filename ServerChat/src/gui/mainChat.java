@@ -359,12 +359,8 @@ public class mainChat extends javax.swing.JFrame {
             ipServer = InetAddress.getLocalHost().getHostAddress();
             Socket clientSocket = new Socket(ipServer, serverPort);
 
-            ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
-            ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
-
-            output.writeObject(message);
-            status = input.readBoolean();
-
+            new ClientConnection(clientSocket, message);
+            
         } catch (IOException ex) {
             Logger.getLogger(mainChat.class.getName()).log(Level.SEVERE, null, ex);
 

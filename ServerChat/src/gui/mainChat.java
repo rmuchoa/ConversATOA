@@ -230,7 +230,14 @@ public class mainChat extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_sendMessageActionPerformed
 
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            //baseados nos protocolos...
+        } catch (Exception erro) {
+
+            JOptionPane.showMessageDialog(null, " ERROR : " + erro.getMessage());
+        }
+
     }//GEN-LAST:event_jButton_logOutActionPerformed
 
     private void jButton_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logInActionPerformed
@@ -241,10 +248,10 @@ public class mainChat extends javax.swing.JFrame {
 
             String name = jTextField_userNickname.getText();
 
-            String ipClient = InetAddress.getLocalHost().getHostAddress();
+            String ipClient = "127.0.0.1";
 
             System.out.println("Troll 1..");
-            
+
             user.setNickName(name);
             System.out.println("Troll 2..");
             user.setIpAdress(ipClient);
@@ -255,8 +262,8 @@ public class mainChat extends javax.swing.JFrame {
             message.setReceiver(receiver);
             message.setConected(true);
 
-            System.out.println("Troll 3..");
             Boolean status = sendMessage(message);
+            System.out.println("Troll 3..");
 
             if (status) {
 
@@ -271,13 +278,14 @@ public class mainChat extends javax.swing.JFrame {
                  */
                 jTextField_userNickname.setEnabled(false);
                 jButton_logIn.setEnabled(false);
-                
+
                 System.out.println("Troll 4 ... botões desbloquiados!");
 
 
             } else if (status == false) {
 
                 jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + name + " já Existe!");
+                System.out.println("status FALSE!");
             }
 
 
@@ -355,19 +363,24 @@ public class mainChat extends javax.swing.JFrame {
 
         Boolean status = false;
 
+        System.out.println("sendMessage");
         try {
             int serverPort = 8000;
 
-            String ipServer;
+            String ipServer = "127.0.0.1";
 
-            ipServer = InetAddress.getLocalHost().getHostAddress();
+
+//            ipServer = InetAddress.getLocalHost().getHostAddress();
             Socket clientSocket = new Socket(ipServer, serverPort);
+            System.out.println("NEW SOCKET");
 
-           status = new ClientConnection(clientSocket, message).isStatus();
-                       
+
+            status = new ClientConnection(clientSocket, message).isStatus();
+            System.out.println("Run Client Connection...");
+
 
         } catch (IOException erro) {
-           
+
             JOptionPane.showMessageDialog(null, " SEND MESSAGE ERROR : " + erro.getMessage());
 
         }

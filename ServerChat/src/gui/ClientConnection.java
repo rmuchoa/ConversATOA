@@ -6,6 +6,7 @@ package gui;
 
 import serverchat.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -32,10 +33,18 @@ class ClientConnection extends Thread {
 
     public ClientConnection(Socket clientSocket, Message message) {
 
-        try {
+        InputStream teste;
 
-            this.input = new ObjectInputStream(clientSocket.getInputStream());
+        try {
+            System.out.println("Construtor do ClientConnection : " + clientSocket.getInetAddress().getHostAddress());
+
+            teste = clientSocket.getInputStream();
+            System.out.println("recebeu o InputStream.");
+
+            this.input = new ObjectInputStream(teste);
+            System.out.println("imput criado.");
             this.output = new ObjectOutputStream(clientSocket.getOutputStream());
+            System.out.println("output criado.");
             this.clientSocket = clientSocket;
             this.start();
 

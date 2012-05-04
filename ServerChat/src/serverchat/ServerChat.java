@@ -44,7 +44,7 @@ public class ServerChat {
             System.out.println("Criou o socket...");
             
             /**
-             * Captura o endereço do local host, ou sej ao endereço fisico do computador.
+             * Captura o endereço do local host, ou seja o endereço fisico do computador.
              */
 //            InetAddress ia = InetAddress.getLocalHost();
 //            System.out.println(ia.getHostAddress());

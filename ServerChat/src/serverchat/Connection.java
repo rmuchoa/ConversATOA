@@ -4,7 +4,11 @@
  */
 package serverchat;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +20,43 @@ import java.net.Socket;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas , Renan Marcel
  */
-class Conexao {
+class Connection extends Thread {
 
-    Conexao(Socket clienteSocket) {
-        
+    DataInputStream input;
+    DataOutputStream output;
+    Socket clientSocket;
+
+    Connection(Socket clientSocket) {
+
+        try {
+
+            this.clientSocket = clientSocket;
+            input = new DataInputStream(clientSocket.getInputStream());
+            output = new DataOutputStream(clientSocket.getOutputStream());
+            this.start();
+
+
+        } catch (IOException erro) {
+            JOptionPane.showMessageDialog(null, " CONNECTION ERROR : " + erro.getMessage());
+
+        }
+
     }
-    
+
+    @Override
+    public void run() {
+
+        try {
+            
+            /**
+             * Destined of future implementation....
+             */
+            
+        } catch (IOException erro) {
+
+            JOptionPane.showMessageDialog(null, " Input/Output ERROR : " + erro.getMessage());
+
+        }
+
+    }
 }

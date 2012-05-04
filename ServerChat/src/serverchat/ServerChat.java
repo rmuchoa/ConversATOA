@@ -17,14 +17,14 @@ import javax.swing.JOptionPane;
  * Curso: Engenharia de Software
  *
  * @version 0.1 - 04/2012
- * @author Juliano Rodovalho, Lucas , Renan Marcel
+ * @authors Juliano Rodovalho, Lucas , Renan Marcel
  */
 public class ServerChat {
 
     static int serverPort;
 
     /**
-     * Construtor da classes ServerChat
+     * Constructor of the class ServerChat
      */
     public void ServerChat() {
     }
@@ -38,13 +38,12 @@ public class ServerChat {
 
             while (true) {
 
-                Socket clienteSocket = listaSocket.accept();
-                Conexao conetctar = new Conexao(clienteSocket);
-
+                Socket clientSocket = listaSocket.accept();
+                Connection connection = new Connection(clientSocket);
             }
 
         } catch (IOException erro) {
-            JOptionPane.showMessageDialog(null, " ERRO : " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, " New Client ERROR : " + erro.getMessage());
 
         }
     }

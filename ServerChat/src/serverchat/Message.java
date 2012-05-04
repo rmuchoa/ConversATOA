@@ -18,8 +18,9 @@ public class Message {
     
     private User user;
     private String message;
+    private User receiver;
     private boolean authenticated;
-    private boolean conectionStatus;
+    private boolean conected;
     
     public Message() {
     
@@ -54,17 +55,31 @@ public class Message {
     }
 
     /**
+     * @return the receiver
+     */
+    public User getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    /**
      * @return the conStatus
      */
-    public boolean isConectionStatus() {
-        return conectionStatus;
+    public boolean isConected() {
+        return conected;
     }
 
     /**
      * @param conectionStatus the conStatus to set
      */
-    public void setConectionStatus(boolean conectionStatus) {
-        this.conectionStatus = conectionStatus;
+    public void setConected(boolean conected) {
+        this.conected = conected;
     }
 
     /**

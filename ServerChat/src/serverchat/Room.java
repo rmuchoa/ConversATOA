@@ -8,8 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author renanmarceluchoa
+ * Trabalho 01 - Implementação de Chat
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello
+ * Curso: Engenharia de Software
+ *  
+ * @version 0.1 - 04/2012
+ * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
 public class Room {
     
@@ -36,10 +41,16 @@ public class Room {
         this.users = users;
     }
     
+    /**
+     * @param user 
+     */
     public void connect(User user) {
         this.users.add(user);
     }
     
+    /**
+     * @param user 
+     */
     public void disconnect(User user) {
         for(User u : this.users) {
             if (user.getNickName().equals(u.getNickName())) {

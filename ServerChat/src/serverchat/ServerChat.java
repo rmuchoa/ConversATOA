@@ -21,25 +21,28 @@ import javax.swing.JOptionPane;
  */
 public class ServerChat {
 
-    static int serverPort;
+    public static int serverPort;
 
     /**
      * Constructor of the class ServerChat
      */
     public void ServerChat() {
+        
     }
 
     public static void main(String rgs[]) {
 
         try {
             
-            serverPort = 8080;
-            ServerSocket listaSocket = new ServerSocket(serverPort);
-
+            serverPort = 8000;
+            ServerSocket listSocket = new ServerSocket(serverPort);
+            Room room = new Room();
+            
             while (true) {
 
-                Socket clientSocket = listaSocket.accept();
-                Connection connection = new Connection(clientSocket);
+                Socket clientSocket = listSocket.accept();
+                new Connection(clientSocket, room);
+                
             }
 
         } catch (IOException erro) {

@@ -30,6 +30,8 @@ class ServerConnection extends Thread {
     public ServerConnection(Socket clientSocket, Room room) {
 
 
+
+            System.out.println("teste");
         try {
             System.out.println("Trollo o construtor...");
             this.input = new ObjectInputStream(clientSocket.getInputStream());
@@ -69,6 +71,10 @@ class ServerConnection extends Thread {
                         out.writeObject(message);
 
                         boolean status = in.readBoolean();
+                        if (status)
+                            System.out.println("Message received by client: "+message.getMessage());
+                        else
+                            System.out.println("");
                         System.out.println("Message received by client: " + message.getMessage());
                     }
 
@@ -96,6 +102,7 @@ class ServerConnection extends Thread {
                     out.writeObject(message);
 
                     status = in.readBoolean();
+
                     if (status) {
                         System.out.println("Message received by client: " + message.getMessage());
                     }

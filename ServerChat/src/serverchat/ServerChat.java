@@ -58,6 +58,7 @@ public class ServerChat {
                 ServerConnection connection = new ServerConnection(clientSocket, room);                
                 System.out.println("Server running... ou NÃO! _HAHAHA_");
                 
+                System.out.println("teste");
             }
 
         } catch (IOException erro) {

@@ -6,10 +6,11 @@ package gui;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
-import serverchat.*;
+import serverchat.ClientSocketReader;
+import serverchat.ServerSocketRunner;
+import serverchat.SocketSender;
 
 /**
  *
@@ -246,7 +247,14 @@ public class mainChat extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_sendMessageActionPerformed
 
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            //baseados nos protocolos...
+        } catch (Exception erro) {
+
+            JOptionPane.showMessageDialog(null, " ERROR : " + erro.getMessage());
+        }
+
     }//GEN-LAST:event_jButton_logOutActionPerformed
 
     private void jButton_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logInActionPerformed
@@ -257,7 +265,7 @@ public class mainChat extends javax.swing.JFrame {
             String ipClient = InetAddress.getByName("localhost").getHostAddress();
             
             boolean status = sendMessage(nickName);
-
+            
             if (status) {
 
                 /**
@@ -271,11 +279,11 @@ public class mainChat extends javax.swing.JFrame {
                  */
                 jTextField_userNickname.setEnabled(false);
                 jButton_logIn.setEnabled(false);
-                
 
             } else {
 
                 jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " o nickname " + nickName + " já está sendo usado");
+
             }
 
 

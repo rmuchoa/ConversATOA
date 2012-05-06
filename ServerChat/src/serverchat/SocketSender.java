@@ -7,6 +7,10 @@ package serverchat;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
@@ -27,11 +31,15 @@ public class SocketSender extends Thread {
 
     public SocketSender(Socket clientSocket, String message) {
 
+        InputStream teste;
+
         try {
 
+            teste = clientSocket.getInputStream();
             this.input = new DataInputStream(clientSocket.getInputStream());
             this.output = new DataOutputStream(clientSocket.getOutputStream());
             this.message = message;
+
             this.start();
 
         } catch (IOException erro) {

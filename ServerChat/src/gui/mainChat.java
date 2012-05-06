@@ -9,7 +9,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 import serverchat.ClientSocketReader;
+import serverchat.ClientSocketReader;
 import serverchat.ServerSocketRunner;
+import serverchat.ServerSocketRunner;
+import serverchat.SocketSender;
 import serverchat.SocketSender;
 
 /**
@@ -19,6 +22,8 @@ import serverchat.SocketSender;
 public class mainChat extends javax.swing.JFrame {
 
     private ClientSocketReader reader;
+    private String nickname;
+    private String ipAddress;
     
     /**
      * Creates new form mainChat
@@ -28,6 +33,7 @@ public class mainChat extends javax.swing.JFrame {
         setVisible(true);
         loadServerSocketRunner();
         
+        jTextArea_mainChat.setText("Bem Vindo ao ConversATOA Bate-Papo" + "\n" + "Um lugar pra gelera jogar a conversa fora");
         jTextArea_userInputText.setEnabled(false);
         jButton_sendMessage.setEnabled(false);
         jButton_logOut.setEnabled(false);
@@ -249,7 +255,28 @@ public class mainChat extends javax.swing.JFrame {
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
 
         try {
-            //baseados nos protocolos...
+            
+            String logoutMessage = "#out";
+            
+            boolean status = sendMessage(logoutMessage);
+            
+            if (status) {
+            
+                /**
+                 * Libera os botões para a utilização do chat.
+                 */
+                jTextArea_userInputText.setEnabled(false);
+                jButton_sendMessage.setEnabled(false);
+                jButton_logOut.setEnabled(false);
+                /**
+                 * Desabilita as opções de login.
+                 */
+                jTextField_userNickname.setEnabled(true);
+                jTextField_userNickname.setText("");
+                jButton_logIn.setEnabled(true);
+                
+            }
+            
         } catch (Exception erro) {
 
             JOptionPane.showMessageDialog(null, " ERROR : " + erro.getMessage());
@@ -277,6 +304,8 @@ public class mainChat extends javax.swing.JFrame {
                  * Desabilita as opções de login.
                  */
                 jTextField_userNickname.setEnabled(false);
+                nickname = jTextField_userNickname.getText();
+                //ipAddress = InetAddress.getLocalHost().getHostAddress();
                 jButton_logIn.setEnabled(false);
 
             } else {
@@ -356,4 +385,38 @@ public class mainChat extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_userNickname;
     // End of variables declaration//GEN-END:variables
 
+    public javax.swing.JList getJList_loggedUsers() {
+        
+        return this.jList_loggedUsers;
+        
+    }
+
+    /**
+     * @return the nickname
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    /**
+     * @param nickname the nickname to set
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * @return the ipAddress
+     */
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    /**
+     * @param ipAddress the ipAddress to set
+     */
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+    
 }

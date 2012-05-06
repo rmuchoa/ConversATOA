@@ -171,4 +171,37 @@ public class ServerSocketReader extends Thread {
         
     }
     
+    public void sendUserList(Room room, User user) {
+        
+        try {
+            
+            String message = "#names";
+            
+            for (User u : room.getUsers()) {
+                
+                message += "\n" + u.getNickName();
+                
+            }
+            
+            int clientPort = 8001;
+            Socket resendSocket = new Socket(user.getIpAddress(), clientPort);
+            SocketSender sender = new SocketSender(resendSocket, message);
+            if(sender.getStatus()) {
+                
+                System.out.println("A mensagem foi enviada com sucesso: "+message);
+                
+            } else {
+                //implementar um laço para continuar tentando enviar a mensagem
+                System.out.println("A mensagem não chegou ao destino");
+                
+            }
+            
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ServerSocketReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ServerSocketReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
 }

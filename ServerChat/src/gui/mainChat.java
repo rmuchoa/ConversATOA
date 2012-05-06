@@ -25,7 +25,7 @@ public class mainChat extends javax.swing.JFrame {
      */
     public mainChat() {
         initComponents();
-        this.setVisible(true);
+        setVisible(true);
         loadServerSocketRunner();
         
         jTextArea_userInputText.setEnabled(false);
@@ -46,13 +46,8 @@ public class mainChat extends javax.swing.JFrame {
             
             int serverPort = 8000;
 
-            //String ipServer = InetAddress.getByName("10.1.1.22").getHostAddress();
-            //String ipServer = InetAddress.getLocalHost().getHostAddress();
-
             String ipServer = "10.1.1.22";
-            //String ipServer = InetAddress.getByName("localhost").getHostAddress();
-            //String ipServer = InetAddress.getLocalHost().getHostAddress();
-            
+
             System.out.println(ipServer);
             Socket clientSocket = new Socket(ipServer, serverPort);
             SocketSender sender = new SocketSender(clientSocket, message);

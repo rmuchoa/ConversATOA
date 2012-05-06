@@ -48,5 +48,7 @@ public class ServerChat {
             JOptionPane.showMessageDialog(null, " New Client ERROR : " + erro.getMessage());
 
         }
+        
     }
+    
 }

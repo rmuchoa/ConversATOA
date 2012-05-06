@@ -235,7 +235,8 @@ public class mainChat extends javax.swing.JFrame {
             String message = jTextArea_userInputText.getText();
 
             Boolean status = sendMessage(message);
-
+            jTextArea_userInputText.setText(null);
+            
             if (!status) {
                 
                 System.out.println("mensagem não pode ser enviada");

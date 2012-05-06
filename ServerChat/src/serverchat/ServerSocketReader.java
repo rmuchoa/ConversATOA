@@ -154,7 +154,13 @@ public class ServerSocketReader extends Thread {
             Socket resendSocket = new Socket(ipAddress, clientPort);
             SocketSender sender = new SocketSender(resendSocket, message);
             if(sender.getStatus()) {
+                
                 System.out.println("A mensagem foi enviada com sucesso: "+message);
+            
+            }else {
+                //implementar um laço para continuar tentando enviar a mensagem
+                System.out.println("A mensagem não chegou ao destino.");
+                
             }
             
         } catch (UnknownHostException ex) {

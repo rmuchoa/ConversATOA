@@ -50,6 +50,7 @@ public class ServerSocketReader extends Thread {
 
             String message = input.readUTF();
             String clientIpAddress = client.getLocalAddress().getHostAddress();
+            String socketAdress = client.getLocalSocketAddress().toString();
             
             if (isConectedUser(clientIpAddress)) {
 

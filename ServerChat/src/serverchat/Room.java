@@ -4,7 +4,7 @@
  */
 package serverchat;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ public class Room {
      * Build an Sala object
      */
     public Room() {
-        this.users = new LinkedList<User>();
+        this.users = new ArrayList<User>();
     }
 
     /**

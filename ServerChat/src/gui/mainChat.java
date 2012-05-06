@@ -4,21 +4,12 @@
  */
 package gui;
 
-import com.sun.corba.se.impl.io.IIOPOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.net.ssl.SSLSocket;
 import javax.swing.JOptionPane;
-import serverchat.Message;
-import serverchat.Room;
-import serverchat.User;
+import serverchat.*;
 
 /**
  *
@@ -26,18 +17,52 @@ import serverchat.User;
  */
 public class mainChat extends javax.swing.JFrame {
 
-    User user = new User();
-    User receiver = null;
-
+    private ClientSocketReader reader;
+    
     /**
      * Creates new form mainChat
      */
     public mainChat() {
         initComponents();
-
+        this.setVisible(true);
+        loadServerSocketRunner();
+        
         jTextArea_userInputText.setEnabled(false);
         jButton_sendMessage.setEnabled(false);
         jButton_logOut.setEnabled(false);
+        
+    }
+    
+    public void loadServerSocketRunner() {
+        
+        new ServerSocketRunner(this);
+        
+    }
+    
+    public boolean sendMessage(String message) {
+
+        try {
+            
+            int serverPort = 8000;
+            String ipServer = InetAddress.getByName("localhost").getHostAddress();
+            Socket clientSocket = new Socket(ipServer, serverPort);
+            SocketSender sender = new SocketSender(clientSocket, message);
+            return sender.getStatus();
+
+        } catch (IOException erro) {
+           
+            JOptionPane.showMessageDialog(null, " SEND MESSAGE ERROR : " + erro.getMessage());
+
+        }
+
+        return false;
+
+    }
+    
+    public void receiveMessage(String message) {
+        
+        jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + message);
+        
     }
 
     /**
@@ -203,23 +228,14 @@ public class mainChat extends javax.swing.JFrame {
 
         try {
 
-            Message message = new Message();
-
-            String user_message = jTextArea_userInputText.getText();
-
-            message.setUser(user);
-            message.setMessage(" -- " + user.getNickName() + " disse: " + user_message);
-
-            message.setReceiver(receiver);
-            message.setConected(true);
-            message.setAuthenticated(true);
+            String message = jTextArea_userInputText.getText();
 
             Boolean status = sendMessage(message);
 
-            if (status) {
-                //
-            } else if (status == false) {
-                //jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + user_message + " já Existe!");
+            if (!status) {
+                
+                System.out.println("mensagem não pode ser enviada");
+                
             }
 
         } catch (Exception erro) {
@@ -237,26 +253,10 @@ public class mainChat extends javax.swing.JFrame {
 
         try {
 
-            Message message = new Message();
-
-            String name = jTextField_userNickname.getText();
-
-            String ipClient = InetAddress.getLocalHost().getHostAddress();
-
-            System.out.println("Troll 1..");
+            String nickName = jTextField_userNickname.getText();
+            String ipClient = InetAddress.getByName("localhost").getHostAddress();
             
-            user.setNickName(name);
-            System.out.println("Troll 2..");
-            user.setIpAdress(ipClient);
-
-            message.setUser(user);
-            message.setMessage("Usuário " + name + " conectando...");
-
-            message.setReceiver(receiver);
-            message.setConected(true);
-
-            System.out.println("Troll 3..");
-            Boolean status = sendMessage(message);
+            boolean status = sendMessage(nickName);
 
             if (status) {
 
@@ -272,12 +272,10 @@ public class mainChat extends javax.swing.JFrame {
                 jTextField_userNickname.setEnabled(false);
                 jButton_logIn.setEnabled(false);
                 
-                System.out.println("Troll 4 ... botões desbloquiados!");
 
+            } else {
 
-            } else if (status == false) {
-
-                jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " Usuário " + name + " já Existe!");
+                jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + " o nickname " + nickName + " já está sendo usado");
             }
 
 
@@ -329,7 +327,7 @@ public class mainChat extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new mainChat().setVisible(true);
+                new mainChat();
             }
         });
     }
@@ -351,28 +349,4 @@ public class mainChat extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_userNickname;
     // End of variables declaration//GEN-END:variables
 
-    public boolean sendMessage(Message message) {
-
-        Boolean status = false;
-
-        try {
-            int serverPort = 8000;
-
-            String ipServer;
-
-            ipServer = InetAddress.getLocalHost().getHostAddress();
-            Socket clientSocket = new Socket(ipServer, serverPort);
-
-           status = new ClientConnection(clientSocket, message).isStatus();
-                       
-
-        } catch (IOException erro) {
-           
-            JOptionPane.showMessageDialog(null, " SEND MESSAGE ERROR : " + erro.getMessage());
-
-        }
-
-        return status;
-
-    }
 }

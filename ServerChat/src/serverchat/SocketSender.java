@@ -2,16 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package serverchat;
 
-import serverchat.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,21 +18,20 @@ import javax.swing.JOptionPane;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
-class ClientConnection extends Thread {
+public class SocketSender extends Thread {
 
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
-    private Socket clientSocket;
-    private Message message;
+    private DataInputStream input;
+    private DataOutputStream output;
+    private String message;
     private boolean status;
 
-    public ClientConnection(Socket clientSocket, Message message) {
+    public SocketSender(Socket clientSocket, String message) {
 
         try {
 
-            this.input = new ObjectInputStream(clientSocket.getInputStream());
-            this.output = new ObjectOutputStream(clientSocket.getOutputStream());
-            this.clientSocket = clientSocket;
+            this.input = new DataInputStream(clientSocket.getInputStream());
+            this.output = new DataOutputStream(clientSocket.getOutputStream());
+            this.message = message;
             this.start();
 
         } catch (IOException erro) {
@@ -50,11 +45,9 @@ class ClientConnection extends Thread {
     public void run() {
 
         try {
-            output.writeObject(message);
-            this.setStatus(input.readBoolean());
-            if (isStatus()) {
-                System.out.println("Message received by server: " + message.getMessage());
-            }
+            
+            output.writeUTF(message);
+            setStatus(input.readBoolean());
 
         } catch (IOException erro) {
 
@@ -65,9 +58,23 @@ class ClientConnection extends Thread {
     }
 
     /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
      * @return the status
      */
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

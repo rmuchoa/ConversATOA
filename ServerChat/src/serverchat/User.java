@@ -19,10 +19,17 @@ import java.io.Serializable;
 public class User implements Serializable{
     
     private String nickName;
-    private String ipAdress;
+    private String ipAddress;
+    private User receiver;
+    private static final long serialVersionUID = 1L;
     
     public User() {
         
+    }
+    
+    public User(String nickName, String ipAddress) {
+        this.nickName = nickName;
+        this.ipAddress = ipAddress;
     }
 
     /**
@@ -42,15 +49,29 @@ public class User implements Serializable{
     /**
      * @return the ipAdress
      */
-    public String getIpAdress() {
-        return ipAdress;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
     /**
      * @param ipAdress the ipAdress to set
      */
-    public void setIpAdress(String ipAdress) {
-        this.ipAdress = ipAdress;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    /**
+     * @return the receiver
+     */
+    public User getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
     
 }

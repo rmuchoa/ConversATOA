@@ -45,7 +45,10 @@ public class mainChat extends javax.swing.JFrame {
         try {
             
             int serverPort = 8000;
-            String ipServer = InetAddress.getByName("localhost").getHostAddress();
+            String ipServer = "10.1.1.20";
+            //String ipServer = InetAddress.getByName("localhost").getHostAddress();
+            //String ipServer = InetAddress.getLocalHost().getHostAddress();
+            System.out.println(ipServer);
             Socket clientSocket = new Socket(ipServer, serverPort);
             SocketSender sender = new SocketSender(clientSocket, message);
             return sender.getStatus();

@@ -41,12 +41,14 @@ public class ServerChat {
             
             while (true) {
                 Socket client = server.accept();
-                ServerSocketReader reader = new ServerSocketReader(client, room);                
+                new ServerSocketReader(client, room);                
             }
 
         } catch (IOException erro) {
             JOptionPane.showMessageDialog(null, " New Client ERROR : " + erro.getMessage());
 
         }
+        
     }
+    
 }

@@ -25,7 +25,7 @@ public class mainChat extends javax.swing.JFrame {
      */
     public mainChat() {
         initComponents();
-        this.setVisible(true);
+        setVisible(true);
         loadServerSocketRunner();
         
         jTextArea_userInputText.setEnabled(false);
@@ -265,7 +265,7 @@ public class mainChat extends javax.swing.JFrame {
         try {
 
             String nickName = jTextField_userNickname.getText();
-            String ipClient = InetAddress.getByName("localhost").getHostAddress();
+            String ipClient = "10.1.1.20";
             
             boolean status = sendMessage(nickName);
             

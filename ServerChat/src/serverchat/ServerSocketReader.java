@@ -49,8 +49,7 @@ public class ServerSocketReader extends Thread {
         try {
 
             String message = input.readUTF();
-            String clientIpAddress = client.getLocalAddress().getHostAddress();
-            String socketAdress = client.getLocalSocketAddress().toString();
+            String clientIpAddress = client.getInetAddress().getHostAddress();
             
             if (isConectedUser(clientIpAddress)) {
 
@@ -93,7 +92,7 @@ public class ServerSocketReader extends Thread {
                 
             }
 
-                    //108.174.58.136:8000 ------ InetAddress.getLocalHost().getHostAddress()
+            //108.174.58.136:8000 ------ InetAddress.getLocalHost().getHostAddress()
         
         } catch (IOException erro) {
 

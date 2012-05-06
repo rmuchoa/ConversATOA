@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
-public class ClientSocketReader extends Thread {
+public class ClientSocketReader {
 
     private DataInputStream input;
     private DataOutputStream output;
@@ -36,25 +36,21 @@ public class ClientSocketReader extends Thread {
             this.input = new DataInputStream(server.getInputStream());
             this.output = new DataOutputStream(server.getOutputStream());
             this.server = server;
-            this.start();
+            this.setMessage(input.readUTF());
+            
+            if(message == null || message.equals("")) {
+                
+                this.output.writeBoolean(false);
+                
+            } else {
+                
+                this.output.writeBoolean(true);
+                
+            }
             
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, " CONNECTION ERROR : " + erro.getMessage());
 
-        }
-        
-    }
-
-    @Override
-    public void run() {
-
-        try {
-            
-            this.setMessage(input.readUTF());
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ClientSocketReader.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

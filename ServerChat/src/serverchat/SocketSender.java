@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
-public class SocketSender extends Thread {
+public class SocketSender {
 
     private DataInputStream input;
     private DataOutputStream output;
@@ -32,26 +32,11 @@ public class SocketSender extends Thread {
             this.input = new DataInputStream(clientSocket.getInputStream());
             this.output = new DataOutputStream(clientSocket.getOutputStream());
             this.message = message;
-            this.start();
-
-        } catch (IOException erro) {
-            JOptionPane.showMessageDialog(null, " CONNECTION ERROR : " + erro.getMessage());
-
-        }
-
-    }
-
-    @Override
-    public void run() {
-
-        try {
-            
             output.writeUTF(message);
             setStatus(input.readBoolean());
 
         } catch (IOException erro) {
-
-            JOptionPane.showMessageDialog(null, " Input/Output ERROR : " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, " CONNECTION ERROR : " + erro.getMessage());
 
         }
 

@@ -52,9 +52,9 @@ public class Room {
      * @param user 
      */
     public void disconnect(User user) {
-        for(User u : this.users) {
-            if (user.getNickName().equals(u.getNickName())) {
-                users.remove(u);
+        for(int i=0; i<users.size(); i++) {
+            if (user.getNickName().equals(users.get(i).getNickName())) {
+                users.remove(i);
             }
         }
     }

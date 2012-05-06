@@ -37,9 +37,13 @@ public class ClientSocketReader {
             this.output = new DataOutputStream(server.getOutputStream());
             this.server = server;
             this.setMessage(input.readUTF());
+
             if (message == null || message.equals("")) {
+                
                 this.output.writeBoolean(false);
+            
             }else{
+                
                 this.output.writeBoolean(true);
             
             }

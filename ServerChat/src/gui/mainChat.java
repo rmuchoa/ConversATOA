@@ -47,9 +47,9 @@ public class mainChat extends javax.swing.JFrame {
             int serverPort = 8000;
 
             //String ipServer = InetAddress.getByName("10.1.1.22").getHostAddress();
-            String ipServer = InetAddress.getLocalHost().getHostAddress();
+            //String ipServer = InetAddress.getLocalHost().getHostAddress();
 
-//            String ipServer = "10.1.1.20";
+            String ipServer = "10.1.1.22";
             //String ipServer = InetAddress.getByName("localhost").getHostAddress();
             //String ipServer = InetAddress.getLocalHost().getHostAddress();
             
@@ -270,7 +270,6 @@ public class mainChat extends javax.swing.JFrame {
         try {
 
             String nickName = jTextField_userNickname.getText();
-            String ipClient = InetAddress.getByName("localhost").getHostAddress();
             
             boolean status = sendMessage(nickName);
             

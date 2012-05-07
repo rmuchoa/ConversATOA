@@ -7,6 +7,9 @@ package gui;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import serverchat.ClientSocketReader;
 import serverchat.ClientSocketReader;
@@ -19,7 +22,7 @@ import serverchat.SocketSender;
  *
  * @author Lucas
  */
-public class mainChat extends javax.swing.JFrame {
+public class ClientChat extends javax.swing.JFrame {
 
     private ClientSocketReader reader;
     private String nickname;
@@ -28,10 +31,16 @@ public class mainChat extends javax.swing.JFrame {
     /**
      * Creates new form mainChat
      */
-    public mainChat() {
+    public ClientChat() {
         initComponents();
         setVisible(true);
         loadServerSocketRunner();
+        try {
+            String ipAddress = InetAddress.getLocalHost().getHostAddress();
+            System.out.println(ipAddress);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ClientChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         jTextArea_mainChat.setText("Bem Vindo ao ConversATOA Bate-Papo" + "\n" + "Um lugar pra gelera jogar a conversa fora");
         jTextArea_userInputText.setEnabled(false);
@@ -51,7 +60,8 @@ public class mainChat extends javax.swing.JFrame {
         try {
             
             int serverPort = 8000;
-            String ipServer = "10.1.1.20";
+            String ipServer = "10.0.0.4";
+            //String ipServer = InetAddress.getByName("localhost").getHostAddress();
             Socket clientSocket = new Socket(ipServer, serverPort);
             SocketSender sender = new SocketSender(clientSocket, message);
             return sender.getStatus();
@@ -139,7 +149,7 @@ public class mainChat extends javax.swing.JFrame {
                 .addComponent(jTextField_userNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_logIn)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         jPanel_chatBoardLayout.setVerticalGroup(
             jPanel_chatBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,11 +166,6 @@ public class mainChat extends javax.swing.JFrame {
         );
 
         jList_loggedUsers.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        jList_loggedUsers.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jList_loggedUsers);
 
         jLabel_loggedUsers.setText("Usuários logados");
@@ -173,7 +178,7 @@ public class mainChat extends javax.swing.JFrame {
             .addGroup(jPanel_userListBoardLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel_loggedUsers)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel_userListBoardLayout.setVerticalGroup(
             jPanel_userListBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,13 +353,13 @@ public class mainChat extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -364,7 +369,7 @@ public class mainChat extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new mainChat();
+                new ClientChat();
             }
         });
     }

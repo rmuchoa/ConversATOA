@@ -30,8 +30,6 @@ public class ServerChat {
     }
 
     public static void main(String rgs[]) {
-
-        System.out.println("Entro na main...");
         
         try {
             

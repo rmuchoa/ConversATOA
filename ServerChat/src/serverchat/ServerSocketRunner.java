@@ -4,7 +4,7 @@
  */
 package serverchat;
 
-import gui.mainChat;
+import gui.ClientChat;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class ServerSocketRunner extends Thread {
     
-    private mainChat chat;
+    private ClientChat chat;
     private int serverPort;
     private ServerSocket server;
     private ClientSocketReader reader;
     
-    public ServerSocketRunner(mainChat chat) {
+    public ServerSocketRunner(ClientChat chat) {
         
         this.chat = chat;
         this.start();
@@ -41,15 +41,15 @@ public class ServerSocketRunner extends Thread {
                 Socket client = server.accept();
                 this.reader = new ClientSocketReader(client);
                 String message = reader.getMessage();
-                this.chat.receiveMessage(message);
                 
                 if (message.contains("conectou")) {
                     
-                    String nickname = message.substring(0, message.indexOf(" ")-1);
+                    this.chat.receiveMessage(message);
+                    String nickname = message.substring(0, message.indexOf(" "));
                     if (!nickname.equals(chat.getNickname())) {
                         final String[] temp = new String[chat.getJList_loggedUsers().getModel().getSize() + 1];
-                        temp[0] = nickname;
-                        for(int i=1; i<chat.getJList_loggedUsers().getModel().getSize(); i++) {
+                        temp[temp.length-1] = nickname;
+                        for(int i=0; i<chat.getJList_loggedUsers().getModel().getSize(); i++) {
                             temp[i] = (String) chat.getJList_loggedUsers().getModel().getElementAt(i);
                         }
                         chat.getJList_loggedUsers().setModel(new javax.swing.AbstractListModel() {
@@ -61,8 +61,8 @@ public class ServerSocketRunner extends Thread {
                     
                 } else if (message.contains("desconectou")) {
                     
-                    String nickname = message.substring(0, message.indexOf(" ")-1);
-                    
+                    this.chat.receiveMessage(message);
+                    String nickname = message.substring(0, message.indexOf(" "));
                     final List<String> temp = new ArrayList<String>();
                     for(int i=0; i<chat.getJList_loggedUsers().getModel().getSize(); i++) {
                         if (!nickname.equals((String) chat.getJList_loggedUsers().getModel().getElementAt(i))) {
@@ -70,7 +70,7 @@ public class ServerSocketRunner extends Thread {
                         }
                     }
                     chat.getJList_loggedUsers().setModel(new javax.swing.AbstractListModel() {
-                        String[] strings = (String[]) temp.toArray();
+                        String[] strings = toArray(temp);
                         public int getSize() { return strings.length; }
                         public Object getElementAt(int i) { return strings[i]; }
                     });
@@ -82,20 +82,24 @@ public class ServerSocketRunner extends Thread {
                     while (!message.isEmpty()) {
                         
                         int divisor = message.indexOf("\n");
-                        String nickname = message.substring(0, divisor-1);
+                        String nickname = message.substring(0, divisor);
                         if (!nickname.equals(chat.getNickname()) && i>0) {
                             names.add(nickname);
                         }
-                        message = message.substring(divisor+2);
+                        message = message.substring(divisor+1);
                         i++;
                         
                     }
                     
                     chat.getJList_loggedUsers().setModel(new javax.swing.AbstractListModel() {
-                        String[] strings = (String[]) names.toArray();
+                        String[] strings = toArray(names);
                         public int getSize() { return strings.length; }
                         public Object getElementAt(int i) { return strings[i]; }
                     });
+                    
+                } else {
+                    
+                    this.chat.receiveMessage(message);
                     
                 }
                 
@@ -105,6 +109,16 @@ public class ServerSocketRunner extends Thread {
             JOptionPane.showMessageDialog(null, " New Client ERROR : " + erro.getMessage());
 
         }
+        
+    }
+    
+    public String[] toArray(List<String> list) {
+        
+        String[] array = new String[list.size()];
+        for (int i=0; i<array.length; i++) {
+            array[i] = list.get(i);
+        }
+        return array;
         
     }
     

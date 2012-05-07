@@ -23,10 +23,11 @@ public class User implements Serializable{
     private User receiver;
     private static final long serialVersionUID = 1L;
     
-    public User() {
-        
-    }
-    
+    /**
+     * Cria um usuário com um nickName e um ipAddress
+     * @param nickName
+     * @param ipAddress 
+     */
     public User(String nickName, String ipAddress) {
         this.nickName = nickName;
         this.ipAddress = ipAddress;
@@ -40,7 +41,7 @@ public class User implements Serializable{
     }
 
     /**
-     * @param nickname the nickname to set
+     * @param nickname to set the nickname
      */
     public void setNickName(String nickName) {
         this.nickName = nickName;
@@ -54,7 +55,7 @@ public class User implements Serializable{
     }
 
     /**
-     * @param ipAdress the ipAdress to set
+     * @param ipAdress to set the ipAdress
      */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
@@ -68,7 +69,7 @@ public class User implements Serializable{
     }
 
     /**
-     * @param receiver the receiver to set
+     * @param receiver to set the receiver
      */
     public void setReceiver(User receiver) {
         this.receiver = receiver;

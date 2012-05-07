@@ -12,15 +12,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import serverchat.ClientSocketReader;
-import serverchat.ClientSocketReader;
 import serverchat.ServerSocketRunner;
-import serverchat.ServerSocketRunner;
-import serverchat.SocketSender;
 import serverchat.SocketSender;
 
 /**
+ * 
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
  *
- * @author Lucas
+ * @version 0.1 - 04/2012
+ * @authors Juliano Rodovalho, Lucas , Renan Marcel
  */
 public class ClientChat extends javax.swing.JFrame {
 
@@ -29,7 +32,8 @@ public class ClientChat extends javax.swing.JFrame {
     private String ipAddress;
     
     /**
-     * Creates new form mainChat
+     * 
+     * Cria uma nova janela para o cliente do chat ConversATOA
      */
     public ClientChat() {
         initComponents();
@@ -49,18 +53,26 @@ public class ClientChat extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Inicia uma nova Thread responsavel por levantar um ServerSocket atento para mensagens do ServerChat
+     */
     public void loadServerSocketRunner() {
         
         new ServerSocketRunner(this);
         
     }
     
+    /**
+     * Envia uma mensagem recebida qualquer, via Socket para o ServerChat do ConversATOA
+     * @param message
+     * @return 
+     */
     public boolean sendMessage(String message) {
 
         try {
             
             int serverPort = 8000;
-            String ipServer = "10.0.0.4";
+            String ipServer = "108.174.58.136";
             //String ipServer = InetAddress.getByName("localhost").getHostAddress();
             Socket clientSocket = new Socket(ipServer, serverPort);
             SocketSender sender = new SocketSender(clientSocket, message);
@@ -76,6 +88,10 @@ public class ClientChat extends javax.swing.JFrame {
 
     }
     
+    /**
+     * Método que imprime na tela, uma mensagem recebida pelo ServerChat
+     * @param message 
+     */
     public void receiveMessage(String message) {
         
         jTextArea_mainChat.setText(jTextArea_mainChat.getText() + "\n" + message);
@@ -236,6 +252,10 @@ public class ClientChat extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que envia a mensagem digitada no campo de inputText para o ServerChat
+     * @param evt 
+     */
     private void jButton_sendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_sendMessageActionPerformed
 
         try {
@@ -258,6 +278,10 @@ public class ClientChat extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton_sendMessageActionPerformed
 
+    /**
+     * Método que envia uma mensagem de logout para o ServerChat
+     * @param evt 
+     */
     private void jButton_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logOutActionPerformed
 
         try {
@@ -290,6 +314,10 @@ public class ClientChat extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton_logOutActionPerformed
 
+    /**
+     * Método que envia uma mensagem de login com o nickname do usuário para o ServerChat
+     * @param evt 
+     */
     private void jButton_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_logInActionPerformed
 
         try {
@@ -391,6 +419,9 @@ public class ClientChat extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_userNickname;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * @return the JList_loggedUsers
+     */
     public javax.swing.JList getJList_loggedUsers() {
         
         return this.jList_loggedUsers;

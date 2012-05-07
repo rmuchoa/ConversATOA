@@ -6,19 +6,16 @@ package serverchat;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * Trabalho 01 - Implementação de Chat Disciplina: Redes e Sistemas Distríbuidos
- * Professora: Aline Vieira de Mello Curso: Engenharia de Software
-    *
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
+ *
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
@@ -29,6 +26,10 @@ public class ClientSocketReader {
     private Socket server;
     private String message;
 
+    /**
+     * Cria um leitor de Sockets para ClientChat.
+     * @param server 
+     */
     public ClientSocketReader(Socket server) {
 
         try {
@@ -63,7 +64,7 @@ public class ClientSocketReader {
     }
 
     /**
-     * @param message the message to set
+     * @param message to set the message
      */
     public void setMessage(String message) {
         this.message = message;

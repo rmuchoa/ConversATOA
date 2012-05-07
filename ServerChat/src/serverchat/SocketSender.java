@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * Trabalho 01 - Implementação de Chat Disciplina: Redes e Sistemas Distríbuidos
- * Professora: Aline Vieira de Mello Curso: Engenharia de Software
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
  *
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
@@ -25,6 +27,11 @@ public class SocketSender {
     private String message;
     private boolean status;
 
+    /**
+     * Cria um SocketSender responsável por enviar mensagens via Socket para um determinado ipAddress
+     * @param clientSocket
+     * @param message 
+     */
     public SocketSender(Socket clientSocket, String message) {
 
         try {
@@ -51,7 +58,7 @@ public class SocketSender {
     }
 
     /**
-     * @param message the message to set
+     * @param message to set the message
      */
     public void setMessage(String message) {
         this.message = message;
@@ -65,7 +72,7 @@ public class SocketSender {
     }
 
     /**
-     * @param status the status to set
+     * @param status to set the status
      */
     public void setStatus(boolean status) {
         this.status = status;

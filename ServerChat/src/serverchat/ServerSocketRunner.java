@@ -14,7 +14,13 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author renanmarceluchoa
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
+ *
+ * @version 0.1 - 04/2012
+ * @authors Juliano Rodovalho, Lucas , Renan Marcel
  */
 public class ServerSocketRunner extends Thread {
     
@@ -23,6 +29,10 @@ public class ServerSocketRunner extends Thread {
     private ServerSocket server;
     private ClientSocketReader reader;
     
+    /**
+     * Cria uma Thread responsável por levantar um ServerSocket no ClientChat para manipular mensagens recebidas
+     * @param chat 
+     */
     public ServerSocketRunner(ClientChat chat) {
         
         this.chat = chat;
@@ -30,6 +40,10 @@ public class ServerSocketRunner extends Thread {
         
     }
     
+    /**
+     * Método que verifica a mensagem recebida para manipular adequadamente a interface do ClientChat.
+     */
+    @Override
     public void run() {
         
         try {
@@ -43,7 +57,7 @@ public class ServerSocketRunner extends Thread {
                 String message = reader.getMessage();
                 
                 if (message.contains("conectou")) {
-                    
+                    //printa a mensagem de conexão, e atualiza a lista de usuários logados
                     this.chat.receiveMessage(message);
                     String nickname = message.substring(0, message.indexOf(" "));
                     if (!nickname.equals(chat.getNickname())) {
@@ -60,7 +74,7 @@ public class ServerSocketRunner extends Thread {
                     }
                     
                 } else if (message.contains("desconectou")) {
-                    
+                    //printa a mensagem de desconexão, e atualiza a lista de usuários logados
                     this.chat.receiveMessage(message);
                     String nickname = message.substring(0, message.indexOf(" "));
                     final List<String> temp = new ArrayList<String>();
@@ -76,7 +90,7 @@ public class ServerSocketRunner extends Thread {
                     });
                     
                 } else if (message.contains("#nicknames")) {
-                
+                    //atualiza uma lista inicial de usuários logados
                     final List<String> names = new ArrayList<String>();
                     int i=0;
                     while (!message.isEmpty()) {
@@ -112,6 +126,11 @@ public class ServerSocketRunner extends Thread {
         
     }
     
+    /**
+     * Método que transforma uma lista de Strings em um array de Strings
+     * @param list
+     * @return 
+     */
     public String[] toArray(List<String> list) {
         
         String[] array = new String[list.size()];

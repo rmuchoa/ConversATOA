@@ -5,13 +5,12 @@
 package serverchat;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * 
  * Trabalho 01 - Implementação de Chat 
  * Disciplina: Redes e Sistemas Distríbuidos
  * Professora: Aline Vieira de Mello 
@@ -23,12 +22,9 @@ import javax.swing.JOptionPane;
 public class ServerChat {
 
     /**
-     * Constructor of the class ServerChat
+     * Método que levanta o ServerSocket para receber mensagens dos clients do ConversATOA
+     * @param rgs 
      */
-    public void ServerChat() {
-        
-    }
-
     public static void main(String rgs[]) {
         
         try {

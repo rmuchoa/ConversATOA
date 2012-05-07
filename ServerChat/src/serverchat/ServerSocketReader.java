@@ -5,19 +5,22 @@
  */
 package serverchat;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * Trabalho 01 - Implementação de Chat Disciplina: Redes e Sistemas Distríbuidos
- * Professora: Aline Vieira de Mello Curso: Engenharia de Software
-    *
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
+ *
  * @version 0.1 - 04/2012
  * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
  */
@@ -30,6 +33,11 @@ public class ServerSocketReader extends Thread {
     private User user;
     private Room room;
 
+    /**
+     * Cria uma Thread responsável por ouvir mensagens do ClientChat, e interpretá-las de acordo com a lista de usuários logados na sala
+     * @param client
+     * @param room 
+     */
     public ServerSocketReader(Socket client, Room room) {
 
         try {
@@ -44,6 +52,9 @@ public class ServerSocketReader extends Thread {
         }
     }
 
+    /**
+     * Método que verifica a mensagem recebida para direcionar o usuário ao caminho correto
+     */
     @Override
     public void run() {
 
@@ -93,8 +104,6 @@ public class ServerSocketReader extends Thread {
                 output.writeBoolean(false);
                 
             }
-
-            //108.174.58.136:8000 ------ InetAddress.getLocalHost().getHostAddress()
         
         } catch (IOException erro) {
 
@@ -104,6 +113,11 @@ public class ServerSocketReader extends Thread {
 
     }
     
+    /**
+     * Método que verifica se o ipAddress recebido representa um usuário logado no sistema
+     * @param ipAddress
+     * @return 
+     */
     public boolean isConectedUser(String ipAddress) {
         for (User user : room.getUsers()) {
             if (user.getIpAddress().equals(ipAddress)) {
@@ -114,6 +128,11 @@ public class ServerSocketReader extends Thread {
         return false;
     }
     
+    /**
+     * Método que interpreta se o nickName recebido está disponível para ser utilizado por um novo usuário.
+     * @param nickName
+     * @return 
+     */
     public boolean isValidUser(String nickName) {
         for (User user : room.getUsers()) {
             if (user.getNickName().equals(nickName)) {
@@ -123,6 +142,11 @@ public class ServerSocketReader extends Thread {
         return true;
     }
     
+    /**
+     * Método que interpreta se o nickName recebido representa um destinatário válido conectado na sistema.
+     * @param nickName
+     * @return 
+     */
     public boolean isValidReceiver(String nickName) {
         for (User user : room.getUsers()) {
             if (nickName.equals(user.getNickName()) && !nickName.equals(this.user.getNickName())) {
@@ -133,6 +157,11 @@ public class ServerSocketReader extends Thread {
         return false;
     }
     
+    /**
+     * Método que interpreta se a mensagem recebida representa uma mensagem de logout
+     * @param message
+     * @return 
+     */
     public boolean isLogoutMessage(String message) {
         if(message.contains("#out")) {
             return true;
@@ -140,6 +169,10 @@ public class ServerSocketReader extends Thread {
         return false;
     }
     
+    /**
+     * Método que envia uma mensagem recebida para cada um dos usuários listados na sala de bate-papo
+     * @param message 
+     */
     public void sendMessage(String message) {
         
         for (User user : room.getUsers()) {
@@ -148,6 +181,11 @@ public class ServerSocketReader extends Thread {
         
     }
     
+    /**
+     * Método que envia a mensagem recebida para o ipAddress informado via Socket
+     * @param message
+     * @param ipAddress 
+     */
     public void sendMessage(String message, String ipAddress) {
         
         try {
@@ -173,6 +211,11 @@ public class ServerSocketReader extends Thread {
         
     }
     
+    /**
+     * Método que envia uma menssagem com uma lista de todos os usuários logados no sistema
+     * @param room
+     * @param user 
+     */
     public void sendUserList(Room room, User user) {
         
         try {

@@ -14,7 +14,13 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author renanmarceluchoa
+ * Trabalho 01 - Implementação de Chat 
+ * Disciplina: Redes e Sistemas Distríbuidos
+ * Professora: Aline Vieira de Mello 
+ * Curso: Engenharia de Software
+ *
+ * @version 0.1 - 04/2012
+ * @authors Juliano Rodovalho, Lucas Capanelli, Renan Marcel
  */
 public class ServerSocketRunner extends Thread {
     

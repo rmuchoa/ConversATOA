@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Trabalho 01 - Implementação de Chat
+ *
+ * Trabalho 01 - Implementação de Chat 
  * Disciplina: Redes e Sistemas Distríbuidos
- * Professora: Aline Vieira de Mello
+ * Professora: Aline Vieira de Mello 
  * Curso: Engenharia de Software
- *  
+ *
  * @version 0.1 - 04/2012
- * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
+ * @authors Juliano Rodovalho, Lucas Capanelli, Renan Marcel
  */
 public class Room {
     

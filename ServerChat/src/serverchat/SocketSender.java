@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * Curso: Engenharia de Software
  *
  * @version 0.1 - 04/2012
- * @author Juliano Rodovalho, Lucas Capanelli, Renan Uchôa
+ * @authors Juliano Rodovalho, Lucas Capanelli, Renan Marcel
  */
 public class SocketSender {
 

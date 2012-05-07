@@ -23,7 +23,7 @@ import serverchat.SocketSender;
  * Curso: Engenharia de Software
  *
  * @version 0.1 - 04/2012
- * @authors Juliano Rodovalho, Lucas , Renan Marcel
+ * @authors Juliano Rodovalho, Lucas Capanelli, Renan Marcel
  */
 public class ClientChat extends javax.swing.JFrame {
 
